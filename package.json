@@ -1,0 +1,16 @@
+{
+  "name": "festiveakp.github.io",
+  "version": "1.0.0",
+  "description": "My personal website",
+  "main": "index.js",
+  "scripts": {
+    "build": "postcss css/tailwind.css -o dist/app.css"
+  },
+  "author": "Akash Pillai",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^9.7.4",
+    "postcss-cli": "^7.1.0",
+    "tailwindcss": "^1.2.0"
+  }
+}
