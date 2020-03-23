@@ -4,11 +4,13 @@
   "description": "My personal website",
   "main": "index.js",
   "scripts": {
-    "build": "postcss css/tailwind.css -o dist/app.css"
+    "build": "NODE_ENV=production postcss css/tailwind.css -o dist/app.css",
+    "watch": "postcss css/tailwind.css -o dist/app.css --watch"
   },
   "author": "Akash Pillai",
   "license": "ISC",
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^2.1.0",
     "autoprefixer": "^9.7.4",
     "postcss-cli": "^7.1.0",
     "tailwindcss": "^1.2.0"
