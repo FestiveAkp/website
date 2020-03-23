@@ -1,0 +1,31 @@
+/* https://meyerweb.com/eric/tools/color-blend/ */
+/* https://material.io/design/color/dark-theme.html */
+/* https://material.io/design/color/the-color-system.html#tools-for-picking-colors */
+
+@tailwind base;
+
+@tailwind components;
+
+/* Primary outlined button */
+.btn {
+    @apply inline-block pl-4 pr-3 py-2 border border-primary rounded text-primary;
+}
+
+.btn:hover {
+    @apply bg-primary text-primary-bg;
+}
+
+.btn:focus {
+    @apply shadow-outline;
+}
+
+.btn:active {
+    @apply bg-purple-500;
+}
+
+/* Media button */
+.btn-media {
+    @apply border-none px-2 py-2;
+}
+
+@tailwind utilities;
