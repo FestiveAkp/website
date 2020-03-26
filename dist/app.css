@@ -424,14 +424,6 @@ svg {
   margin-top: 5rem;
 }
 
-.max-w-md {
-  max-width: 28rem;
-}
-
-.p-8 {
-  padding: 2rem;
-}
-
 .text-center {
   text-align: center;
 }
@@ -475,8 +467,8 @@ svg {
     justify-content: flex-start;
   }
 
-  .sm\:p-20 {
-    padding: 5rem;
+  .sm\:pl-24 {
+    padding-left: 6rem;
   }
 
   .sm\:text-left {
@@ -492,9 +484,9 @@ svg {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
 
-  .lg\:p-56 {
-    padding: 14rem;
+  .xl\:pl-64 {
+    padding-left: 16rem;
   }
 }
