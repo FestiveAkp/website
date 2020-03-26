@@ -192,6 +192,10 @@ a {
  * Add the correct display in IE 10.
  */
 
+[hidden] {
+  display: none;
+}
+
 /**
  * Manually forked from SUIT CSS Base: https://github.com/suitcss/base
  * A thin layer on top of normalize.css that provides a starting point more
@@ -204,8 +208,7 @@ a {
 
 
 h1,
-h2,
-p {
+h2 {
   margin: 0;
 }
 
@@ -279,6 +282,10 @@ html {
  * https://github.com/tailwindcss/tailwindcss/issues/362
  */
 
+table {
+  border-collapse: collapse;
+}
+
 h1,
 h2 {
   font-size: inherit;
@@ -331,12 +338,42 @@ svg {
  * https://github.com/mozdevs/cssremedy/issues/14
  */
 
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
 /* Primary outlined button */
 
 .btn {
   display: inline-block;
   padding-left: 1rem;
-  padding-right: 0.75rem;
+  padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   border-width: 1px;
@@ -380,6 +417,14 @@ svg {
   display: inline-flex;
 }
 
+.table {
+  display: table;
+}
+
+.hidden {
+  display: none;
+}
+
 .items-center {
   align-items: center;
 }
@@ -396,6 +441,10 @@ svg {
   font-weight: 600;
 }
 
+.font-bold {
+  font-weight: 700;
+}
+
 .h-5 {
   height: 1.25rem;
 }
@@ -408,6 +457,10 @@ svg {
   height: 100vh;
 }
 
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -416,12 +469,41 @@ svg {
   margin-left: 1.25rem;
 }
 
+.ml-6 {
+  margin-left: 1.5rem;
+}
+
 .mt-10 {
   margin-top: 2.5rem;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
 .mt-20 {
   margin-top: 5rem;
+}
+
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
+.pr-3 {
+  padding-right: 0.75rem;
+}
+
+.pt-16 {
+  padding-top: 4rem;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -436,8 +518,16 @@ svg {
   color: #cbd5e0;
 }
 
+.text-gray-500 {
+  color: #a0aec0;
+}
+
 .text-sm {
   font-size: 0.875rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
 }
 
 .text-5xl {
@@ -459,6 +549,10 @@ svg {
 
 .w-6 {
   width: 1.5rem;
+}
+
+.w-full {
+  width: 100%;
 }
 
 @media (min-width: 640px) {
@@ -484,7 +578,35 @@ svg {
   }
 }
 
+@media (min-width: 768px) {
+
+  .md\:table-cell {
+    display: table-cell;
+  }
+
+  .md\:pt-32 {
+    padding-top: 8rem;
+  }
+
+  .md\:pt-48 {
+    padding-top: 12rem;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .lg\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
 @media (min-width: 1280px) {
+
+  .xl\:px-24 {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
 
   .xl\:pl-64 {
     padding-left: 16rem;
