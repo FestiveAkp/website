@@ -1,13 +1,21 @@
+const tailwindcss = require('tailwindcss');
+const autoprefixer = require('autoprefixer');
+
+const purgecss = require('@fullhuman/postcss-purgecss')({
+    content: [
+        './pages/**/*.hbs'
+    ],
+    defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
+});
+
+const cssnano = require('cssnano')({
+    preset: 'default'
+});
+
 module.exports = {
     plugins: [
-        require('tailwindcss'),
-        require('autoprefixer'),
-        process.env.NODE_ENV === 'production' && require('@fullhuman/postcss-purgecss')({
-            content: [
-                './index.html',
-                './projects/index.html'
-            ],
-            defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
-        })
+        tailwindcss,
+        autoprefixer,
+        ...process.env.NODE_ENV === 'production' ? [purgecss, cssnano] : []
     ]
 }

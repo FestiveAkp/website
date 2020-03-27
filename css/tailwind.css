@@ -2,9 +2,10 @@
 /* https://material.io/design/color/dark-theme.html */
 /* https://material.io/design/color/the-color-system.html#tools-for-picking-colors */
 
+/* purgecss start ignore */
 @tailwind base;
-
 @tailwind components;
+/* purgecss end ignore */
 
 /* Primary outlined button */
 .btn {
