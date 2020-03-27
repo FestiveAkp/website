@@ -3,7 +3,7 @@ const autoprefixer = require('autoprefixer');
 
 const purgecss = require('@fullhuman/postcss-purgecss')({
     content: [
-        './pages/**/*.hbs'
+        './src/**/*.hbs'
     ],
     defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
 });
