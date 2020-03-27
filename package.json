@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production postcss css/tailwind.css -o dist/app.css",
-    "watch": "postcss css/tailwind.css -o dist/app.css --watch"
+    "watch": "postcss css/tailwind.css -o _site/app.css"
   },
   "author": "Akash Pillai",
   "license": "ISC",
   "dependencies": {
+    "@11ty/eleventy": "^0.10.0",
     "@fullhuman/postcss-purgecss": "^2.1.0",
     "autoprefixer": "^9.7.4",
     "postcss-cli": "^7.1.0",
