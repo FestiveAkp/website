@@ -1,6 +1,6 @@
 module.exports = {
     dir: {
-        input: 'pages',
+        input: 'src/pages',
         layouts: '../layouts',
         output: 'dist'
     }
