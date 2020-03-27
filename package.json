@@ -4,8 +4,8 @@
   "description": "My personal website",
   "main": "index.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production postcss css/tailwind.css -o dist/app.css && npx eleventy",
-    "dev": "postcss css/tailwind.css -o dist/app.css && npx eleventy --serve"
+    "build": "cross-env NODE_ENV=production postcss src/css/tailwind.css -o dist/app.css --verbose && npx eleventy",
+    "dev": "postcss src/css/tailwind.css -o dist/app.css --verbose && npx eleventy --serve"
   },
   "author": "Akash Pillai",
   "license": "ISC",
