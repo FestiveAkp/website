@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production postcss src/css/tailwind.css -o dist/app.css --verbose && npx eleventy",
-    "dev": "postcss src/css/tailwind.css -o dist/app.css --verbose && npx eleventy --serve"
+    "dev": "postcss src/css/tailwind.css -o dist/app.css --verbose && npx eleventy --serve",
+    "deploy": "./deploy.sh"
   },
   "author": "Akash Pillai",
   "license": "ISC",
