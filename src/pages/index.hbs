@@ -25,7 +25,7 @@ media-buttons:
 
         <a class="btn mt-10 pr-3 inline-flex items-center" href="/projects/">
             <span class="font-semibold tracking-wide">Check out my projects</span>
-            <svg class="h-5 w-5 ml-2" viewBox="0 0 24 24">
+            <svg style="width:1.25rem; height:1.25rem;" class="ml-2" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
             </svg>
         </a>
@@ -33,7 +33,7 @@ media-buttons:
         <div class="flex justify-between mt-20">
             {{#each media-buttons}}
                 <a class="btn btn-media" href="{{this.link}}" title="{{@key}}" target="_blank" rel="noopener noreferrer">
-                    <svg class="h-6 w-6" viewBox="0 0 24 24">{{{this.icon}}}</svg>
+                    <svg style="width:1.5rem; height:1.5rem;" viewBox="0 0 24 24">{{{this.icon}}}</svg>
                 </a>
             {{/each}}
         </div>
