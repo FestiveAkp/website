@@ -20,3 +20,4 @@ This project is set up to deploy to GitHub Pages, so use the included deploy scr
 ```
 npm run deploy
 ```
+You can view the current build [here](https://github.com/FestiveAkp/festiveakp.github.io).
