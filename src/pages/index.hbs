@@ -18,12 +18,12 @@ media-buttons:
         icon: <path fill="currentColor" d="M13 17H17V14L22 18.5L17 23V20H13V17M20 4H4A2 2 0 0 0 2 6V18A2 2 0 0 0 4 20H11V18H4V8L12 13L20 8V14H22V6A2 2 0 0 0 20 4M12 11L4 6H20Z" />
         link: mailto:apilla20@uic.edu
 ---
-<main class="flex items-center h-screen justify-center sm:justify-start sm:pl-24 xl:pl-64">
-    <section class="text-center sm:text-left">
+<main id="main" class="flex items-center h-full justify-center sm:justify-start sm:pl-24 xl:pl-64 select-none z-0">
+    <section class="text-center sm:text-left z-20 pointer-events-none">
         <h1 class="text-5xl sm:text-6xl">Akash Pillai</h1>
         <h2 class="text-sm text-gray-400 sm:text-base">{{{description}}}</h2>
 
-        <a class="btn mt-10 pr-3 inline-flex items-center" href="/projects/">
+        <a class="btn mt-10 pr-3 inline-flex items-center pointer-events-auto" href="/projects/">
             <span class="font-semibold tracking-wide">Check out my projects</span>
             <svg style="width:1.25rem; height:1.25rem;" class="ml-2" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
@@ -32,10 +32,151 @@ media-buttons:
 
         <div class="flex justify-between mt-20">
             {{#each media-buttons}}
-                <a class="btn btn-media" href="{{this.link}}" title="{{@key}}" target="_blank" rel="noopener noreferrer">
+                <a class="btn btn-media pointer-events-auto" href="{{this.link}}" title="{{@key}}" target="_blank" rel="noopener noreferrer">
                     <svg style="width:1.5rem; height:1.5rem;" viewBox="0 0 24 24">{{{this.icon}}}</svg>
                 </a>
             {{/each}}
         </div>
     </section>
+    <canvas id="matter-js" class="absolute top-0 left-0 z-10"></canvas>
 </main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.2/matter.min.js" integrity="sha512-pi0tSRZdlNRZeANPwdAIHRAYg6gZZV6QlAiyHXn5TYqLzBKE9jlttO/QgYLMhISD6oNv2kPsVelx+n5nw0FqKA==" crossorigin="anonymous"></script>
+<script>
+    const Engine          = Matter.Engine;
+    const Render          = Matter.Render;
+    const Runner          = Matter.Runner;
+    const World           = Matter.World;
+    const Composite       = Matter.Composite;
+    const Composites      = Matter.Composites;
+    const Common          = Matter.Common;
+    const Body            = Matter.Body;
+    const Bodies          = Matter.Bodies;
+    const MouseConstraint = Matter.MouseConstraint;
+    const Mouse           = Matter.Mouse;
+
+    let topWall;
+    let leftWall;
+    let bottomWall;
+    let rightWall;
+
+    // Create walls that border the window
+    const createWalls = world => {
+        const wallWidth = 100;
+        const wallWidthOffset = (wallWidth / 2) - 3;
+        const wallOptions = {
+            isStatic: true,
+            restitution: 0.8,
+            friction: 0,
+            render: {
+                visible: true
+            }
+        };
+
+        topWall = Bodies.rectangle(window.innerWidth / 2, 0 - wallWidthOffset, window.innerWidth, wallWidth, wallOptions);
+        leftWall = Bodies.rectangle(0 - wallWidthOffset, window.innerHeight / 2, wallWidth, window.innerHeight, wallOptions);
+        bottomWall = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + wallWidthOffset, window.innerWidth, wallWidth, wallOptions);
+        rightWall = Bodies.rectangle(window.innerWidth + wallWidthOffset, window.innerHeight / 2, wallWidth, window.innerHeight, wallOptions);
+
+        World.add(world, [topWall, leftWall, bottomWall, rightWall]);
+    }
+
+    // Remove walls
+    const removeWalls = world => {
+        World.remove(engine.world, topWall);
+        World.remove(engine.world, leftWall);
+        World.remove(engine.world, bottomWall);
+        World.remove(engine.world, rightWall);
+    }
+
+    // Create Engine
+    const engine = Engine.create();
+    engine.world.gravity.scale = 0;
+
+    // Create renderer
+    const render = Render.create({
+        canvas: document.querySelector('#matter-js'),
+        engine: engine,
+        options: {
+            width: window.innerWidth,
+            height: window.innerHeight,
+            background: 'transparent',
+            wireframes: false
+        }
+    });
+
+    Render.setPixelRatio(render, 'auto');
+    Render.run(render);
+
+    // Add bodies
+    const stack = Composites.stack(150, 100, 8, 5, 200, 100, (x, y) => {
+        const newBody = Bodies.rectangle(x, y, Common.random(25, 50), Common.random(25, 50), { chamfer: 0.4 });
+        newBody.friction = 0.01;
+        newBody.frictionAir = 0.001;
+        newBody.restitution = 0.5;
+        Body.setMass(newBody, 3);
+        return newBody;
+    });
+
+    World.add(engine.world, stack);
+
+    // Create walls
+    createWalls(engine.world);
+
+    // Register mouse
+    const mouse = Mouse.create(render.canvas);
+    const mouseConstraint = MouseConstraint.create(engine, {
+        mouse,
+        constraint: {
+            stiffness: 0.2,
+            render: {
+                visible: false
+            }
+        }
+    });
+
+    World.add(engine.world, mouseConstraint);
+    render.mouse = mouse;
+
+    mouse.element.removeEventListener('mousewheel', mouse.mousewheel);
+    mouse.element.removeEventListener('DOMMouseScroll', mouse.mousewheel);
+
+
+    // Scatter all bodies to start out
+    Composite.allBodies(stack).forEach(body => {
+        const initialPushForce = 0.09;
+        Body.applyForce(body, body.position, {
+            x: Common.random(-initialPushForce, initialPushForce),
+            y: Common.random(-initialPushForce, initialPushForce)
+        });
+        Body.setAngularVelocity(body, 0.01);
+    });
+
+    // Run the simulation
+    Engine.run(engine);
+
+    // Intermittently push a random body
+    setInterval(() => {
+        const pushBodyID = Math.floor(Common.random(1, 40));
+        const pushBody = Composite.get(stack, pushBodyID, 'body')
+        const intermittentPushForce = 0.01;
+        if (pushBody) {
+            Body.applyForce(pushBody, pushBody.position, {
+                x: Common.random(-intermittentPushForce, intermittentPushForce),
+                y: Common.random(-intermittentPushForce, intermittentPushForce)
+            });
+            Body.setAngularVelocity(pushBody, 0.01);
+        }
+    }, 1000)
+
+    // Resize simulation if the window size changes
+    window.addEventListener('resize', () => {
+        render.canvas.width = window.innerWidth;
+        render.canvas.style.width = window.innerWidth + 'px';
+        render.canvas.height = window.innerHeight;
+        render.canvas.style.height = window.innerHeight + 'px';
+
+        removeWalls(engine.world);
+        createWalls(engine.world);
+    });
+</script>
